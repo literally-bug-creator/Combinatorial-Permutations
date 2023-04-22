@@ -1,12 +1,16 @@
 
 
 def GetPermutationsAmount(n: int)-> int: # 1 done
+    if n == 0:
+        return 1
+    
     result = 1
     
     for i in range(1, n + 1):
         result *= i
     
     return result
+
 
 
 def GetPermutationByPosition(position: int, n: int): #4 done
@@ -31,5 +35,20 @@ def GetPermutationByPosition(position: int, n: int): #4 done
     
 
 
-def GetPositionByPermutation(n: int, permutation: int):
-    per
+def GetPositionByPermutation(n: int, permutation: int): #5 done
+    usedDigits = []
+    permutationIndex = 1
+    
+    for i in range(1, n + 1):
+        j = 1
+        digitsAmount = 0
+        
+        while j < permutation[i - 1]:
+            if not(j in usedDigits):
+                digitsAmount += 1
+            j += 1
+        
+        usedDigits.append(permutation[i - 1])
+        permutationIndex += GetPermutationsAmount(n - i) * digitsAmount
+    
+    return permutationIndex
